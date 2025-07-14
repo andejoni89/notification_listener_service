@@ -106,8 +106,17 @@ public class NotificationListener extends NotificationListenerService {
             if (largeIcon == null) {
                 return null;
             }
+
             Drawable iconDrawable = largeIcon.loadDrawable(context);
-            Bitmap iconBitmap = ((BitmapDrawable) iconDrawable).getBitmap();
+            if (iconDrawable == null) {
+                return null;
+            }
+
+            Bitmap iconBitmap = getBitmapFromDrawable(iconDrawable);
+            if (iconBitmap == null) {
+                return null;
+            }
+            
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             iconBitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
 
